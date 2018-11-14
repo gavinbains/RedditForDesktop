@@ -1,3 +1,3 @@
 # RedditForDesktop
 
-By Hope, Chase, Gavin, Hope, Eric
+By Hemant, Chase, Gavin, Hope, Eric

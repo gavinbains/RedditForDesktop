@@ -6,6 +6,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Run this to start the webpack server + launch electron.
 
+### Shit I looked up because setting up React is hard
+
+[Electron + Create React App](https://medium.freecodecamp.org/building-an-electron-application-with-create-react-app-97945861647c)
+
 ## Create React App Stuff
 
 In the project directory, you can run:

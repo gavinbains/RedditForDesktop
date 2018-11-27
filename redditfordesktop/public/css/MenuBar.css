@@ -1,0 +1,9 @@
+.menu-bar {
+    display: flex;
+    border-bottom: 3px solid teal; 
+    height: 125px;
+}
+
+.search-box {
+    flex: 30%;
+}

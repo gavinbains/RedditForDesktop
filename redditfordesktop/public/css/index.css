@@ -6,6 +6,13 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: black;
+}
+
+input {
+  background-color: black;
+  color: teal;
+  border-color: teal;
 }
 
 code {

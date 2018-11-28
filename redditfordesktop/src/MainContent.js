@@ -6,6 +6,8 @@ import dvInactive from './img/dv_inactive.png';
 import uvActive from './img/uv_active.png';
 import uvInactive from './img/uv_inactive.png';
 
+import comments from './comments.json';
+
 export default class MainContent extends Component {
     constructor(props) {
         super(props);
@@ -16,8 +18,8 @@ export default class MainContent extends Component {
 
     componentDidMount() {
         document.addEventListener('keypress', e => {
-            if (e.keyCode === 119) this.setState(prev => ({threadIdx: Math.max(0, prev.threadIdx - 1)}));
-            if (e.keyCode === 115) this.setState(prev => ({threadIdx: Math.min(this.props.threads.length - 1, prev.threadIdx + 1)}));
+            if (e.keyCode === 'w'.charCodeAt()) this.setState(prev => ({threadIdx: Math.max(0, prev.threadIdx - 1)}));
+            if (e.keyCode === 's'.charCodeAt()) this.setState(prev => ({threadIdx: Math.min(this.props.threads.length - 1, prev.threadIdx + 1)}));
         })
     }
 
@@ -38,7 +40,11 @@ export default class MainContent extends Component {
                 <div className="main-content-thread-expanded-container">
                     <div className="main-content-thread-expanded">
                         <h1>{threads[threadIdx].data.title}</h1>
-                        <p dangerouslySetInnerHTML={{__html: marked(threads[threadIdx].data.selftext)}}></p>
+                        <p dangerouslySetInnerHTML={{__html: marked(threads[threadIdx].data.selftext.replace(/&amp;/, '&'))}}></p>
+                        <h2>Comments</h2>
+                        <div className="comments-section">
+                        {threadIdx === 0 && comments[1].data.children.map((comment, idx) => <Comment key={idx} comment={comment}/>)}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -57,8 +63,8 @@ class ThreadPreview extends Component {
     componentDidMount() {
         document.addEventListener('keypress', e => {
             if (!this.props.selected) return;
-            if (e.keyCode === 113) this._vote(1);
-            if (e.keyCode === 101) this._vote(-1);
+            if (e.keyCode === 'q'.charCodeAt()) this._vote(1);
+            if (e.keyCode === 'e'.charCodeAt()) this._vote(-1);
         })
     }
 
@@ -91,5 +97,23 @@ class ThreadPreview extends Component {
             </h2>
         </div>
     );
+    }
+}
+
+class Comment extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        const {comment} = this.props;
+        return (
+            <div className="comment">
+                <p dangerouslySetInnerHTML={{__html: marked(comment.data.body).replace(/&amp;/, '&')}}></p>
+                <div>
+                {comment.data.replies.data && comment.data.replies.data.children.map(reply => <Comment comment={reply}/>)}
+                </div>
+            </div>
+        );
     }
 }

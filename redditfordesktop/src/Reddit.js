@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import MenuBar from './MenuBar';
 import MainContent from './MainContent';
 
-import data from './data.json';
+import threads from './threads.json';
 
 // import './Reddit.css';
 
@@ -12,7 +12,7 @@ export default class Reddit extends Component {
         super(props);
         this.state = {
             username: 'myusername',
-            threads: data.data.children,
+            threads: threads.data.children,
             expandedView: false,
             subreddit: ''
         }
@@ -21,8 +21,8 @@ export default class Reddit extends Component {
     componentDidMount() {
         document.addEventListener('keypress', (e) => {
             console.log(e.keyCode);
-            if (e.keyCode === 97) this.setState({expandedView: true});
-            if (e.keyCode === 100) this.setState({expandedView: false});
+            if (e.keyCode === 'a'.charCodeAt()) this.setState({expandedView: true});
+            if (e.keyCode === 'd'.charCodeAt()) this.setState({expandedView: false});
         });
     }
 
